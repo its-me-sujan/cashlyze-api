@@ -1,0 +1,51 @@
+services:
+  db:
+    restart: always
+    environment:
+      - POSTGRES_DB=${DEFAULT_DATABASE}
+      - POSTGRES_USER=${DEFAULT_DATABASE_USER}
+      - POSTGRES_PASSWORD=${DEFAULT_DATABASE_PASSWORD}
+    env_file:
+      - ./.env.docker
+    image: postgres:latest
+    container_name: cashlyze_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data/:rw
+    ports:
+      - "5434:5432"
+    networks:
+      - cashlyze_network
+  redis:
+    restart: always
+    image: redis:6.2.6-alpine
+    container_name: cashlyze_redis
+    ports:
+      - "6380:6379"
+    networks:
+      - cashlyze_network
+  web:
+    image: web:cashlyze
+    container_name: cashlyze_container
+    restart: always
+    env_file:
+      - ./.env.docker
+    build: .
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./:/app/
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - redis
+    networks:
+      - cashlyze_network
+
+volumes:
+  pgdata:
+  static:
+  media:
+
+
+networks:
+  cashlyze_network:

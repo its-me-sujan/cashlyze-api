@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+redis = "*"
+celery = "*"
+djangorestframework-simplejwt = "*"
+psycopg2 = "*"
+drf-yasg = "*"
+python-decouple = "*"
+drf-spectacular = "*"
+django-cors-headers = "*"
+django-filter = "*"
+django-log-viewer = "*"
+drf-writable-nested = "*"
+django-extensions = "*"
+django-role-permissions = "*"
+django-debug-toolbar = "*"
+ipython = "*"
+psycopg2-binary = "*"
+django-modeltranslation = "*"
+requests = "*"
+django-versatileimagefield = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
